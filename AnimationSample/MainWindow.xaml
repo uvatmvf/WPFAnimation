@@ -1,0 +1,43 @@
+﻿<Window x:Class="AnimationSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnimationSample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="smallTemplate">
+            <local:SmallUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="largeTemplate">
+            <local:LargeUserControl />
+        </DataTemplate>        
+        <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="mainTemplate">
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding ElementName=ZoomSlider, Path=Value}" Value="1">                 
+                    <Setter Property="ContentTemplate" Value="{StaticResource smallTemplate}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=ZoomSlider, Path=Value}" Value="2">                        
+                    <Setter Property="ContentTemplate" Value="{StaticResource largeTemplate}"/>
+                </DataTrigger>                
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <Style TargetType="{x:Type ContentControl}" x:Key="DisplayStyle">
+            <Setter Property="ContentTemplate" Value="{StaticResource smallTemplate}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=ZoomSlider, Path=Value}" Value="1">
+                    <Setter Property="ContentTemplate" Value="{StaticResource smallTemplate}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=ZoomSlider, Path=Value}" Value="2">
+                    <Setter Property="ContentTemplate" Value="{StaticResource largeTemplate}"/>
+                </DataTrigger>                
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="8">
+        <Slider x:Name="ZoomSlider" Minimum="1" Maximum="2" IsSnapToTickEnabled="True" />
+        <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}">
+        </ContentControl>
+    </StackPanel>
+</Window>

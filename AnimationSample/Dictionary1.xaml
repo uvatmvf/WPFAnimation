@@ -1,0 +1,248 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AnimationSample">
+    <Style x:Key="FlashyAlarmBorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="BorderBrush" Value="Silver"/>
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Alarm}" Value="True" />
+                    <Condition Binding="{Binding Flash}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="Orange"/>
+                <Setter Property="BorderBrush" Value="Orange"/>
+                <MultiDataTrigger.EnterActions>
+                    <BeginStoryboard Name="faultBoard">
+                        <Storyboard>
+                            <ColorAnimation AutoReverse="True" 
+                                                RepeatBehavior="Forever" 
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                Duration="00:00:01"                                            
+                                                From="Silver"
+                                                To="Orange"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiDataTrigger.EnterActions>
+                <MultiDataTrigger.ExitActions>
+                    <StopStoryboard BeginStoryboardName="faultBoard">
+                    </StopStoryboard>
+                </MultiDataTrigger.ExitActions>
+            </MultiDataTrigger>
+            <!--<DataTrigger Binding="{Binding Alarm}" Value="True" >
+                <Setter Property="Background" Value="Orange"/>
+                <Setter Property="BorderBrush" Value="Orange"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Name="alarmBoard">
+                        <Storyboard>
+                            <ColorAnimation AutoReverse="True" 
+                                                RepeatBehavior="Forever" 
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                Duration="00:00:01"                                            
+                                                From="Silver"
+                                                To="Orange"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <StopStoryboard BeginStoryboardName="alarmBoard">
+                    </StopStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>-->          
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
+
+<!--<Button Style="{DynamicResource GlobalAckButtonStyle}"
+                            Content="Ack All" 
+                                ToolTip="Acknowledge all faults and alarms"
+                                MinHeight="23" MinWidth="75"
+                                Margin="8,8,0,8" 
+                            Command="{Binding AcknowledgeAll}" />
+<Button Style="{DynamicResource DefaultButtonStyle}" Content="Configure..."
+                                MinHeight="23" MinWidth="75" Margin="8,8,0,8" 
+                                Click="BtnConfigureClick" IsEnabled="{Binding Configurable, Mode=OneWay}" 
+                                Visibility="Collapsed" />
+<ToggleButton IsChecked="{Binding Squelch}"
+                              Style="{DynamicResource RedToggleButtonStyle}" 
+                                      IsThreeState="False"
+                                      MinHeight="23" MinWidth="75"
+                                      Margin="8,8,0,8" >
+    <Image Width="24" Height="22" Opacity=".77">
+        <Image.Style>
+            <Style TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="true">
+                        <Setter Property="Source" Value="/Resources/Mute_IconW.png"/>
+                        <Setter Property="ToolTip" Value="Faults: Squelched"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="false">
+                        <Setter Property="Source" Value="/Resources/Speaker_IconW.png"/>
+                        <Setter Property="ToolTip" Value="Faults: Unsquelched"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Image.Style>
+    </Image>
+</ToggleButton>-->
+<!--<ToggleButton Style="{DynamicResource RedToggleButtonStyle}" 
+                                      IsThreeState="False"
+                                      Content="Squelch" MinHeight="23" MinWidth="75"
+                                      Margin="8,8,0,8" 
+                                      IsChecked="{Binding Squelch}"/>-->
+<!--<ToggleButton Style="{DynamicResource GreenToggleButtonStyle}" Content="Mca Mode" MinHeight="23" MinWidth="75" Margin="8,8,0,8" IsChecked="{Binding McaMode}"
+                                  Visibility="{Binding ShowMcaMode, Converter={StaticResource BoolToVis}, Mode=OneWay}" />-->
+<!--<Button Style="{DynamicResource DefaultButtonStyle}"
+                                Content="Export..." 
+                                MinHeight="23" MinWidth="75" 
+                                Margin="8,8,0,8" 
+                                Click="BtnExportClick"
+                                Visibility="Collapsed" />
+<Button Style="{DynamicResource DefaultButtonStyle}" 
+                                Content="Review" MinHeight="23" 
+                                MinWidth="75" Margin="8,8,0,8"
+                                ToolTip="Open Review application"
+                                Command="{Binding InspectCommand}" 
+                            Visibility="{Binding ShowInspector, Converter={StaticResource BoolToVis}, Mode=OneWay}" />
+<Button Style="{DynamicResource DefaultButtonStyle}" 
+                                Content="Site Map" 
+                                MinHeight="23" MinWidth="75" 
+                                Margin="8,8,0,8" 
+                                ToolTip="Open site map"
+                                Command="{Binding SiteMapCommand}" />
+<Button Margin="8,8,0,8" Style="{DynamicResource DefaultButtonStyle}"
+                            MinHeight="23" MinWidth="75" 
+                            Command="{Binding PrintScreenCommand}"
+                                ToolTip="Print Screen"
+                            CommandParameter="{Binding ElementName=KCLOeWindow}">
+    <Image Stretch="Fill" Height="22" Width="28" Source="Resources/printer.png" >
+    </Image>
+</Button>
+<Button Style="{DynamicResource DefaultButtonStyle}" MinHeight="23" MinWidth="75" Margin="8,8,0,8" Command="{Binding AboutCommand}">
+    <Image Stretch="Fill" Height="22" Width="28" Source="Resources/about.png" />
+</Button>
+<Style x:Key="AlarmBorderStyle" TargetType="{x:Type Border}">
+    <Setter Property="BorderBrush" Value="{StaticResource GlyphBrush}"/>
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="CornerRadius" Value="8,8,8,8" />
+    <Style.Triggers>
+        <DataTrigger Binding="{Binding AnyAlarms}" Value="True">
+            <Setter Property="BorderBrush" Value="{Binding HighestAlarm, Converter={StaticResource AlarmFlagBrushConverter}}" />
+            <Setter Property="BorderThickness" Value="4" />
+            <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding AnyFaults}" Value="True">
+            <Setter Property="BorderBrush" Value="{Binding HighestAlarm, Converter={StaticResource AlarmFlagBrushConverter}}" />
+            <Setter Property="BorderThickness" Value="4" />
+            <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+        </DataTrigger>
+    </Style.Triggers>
+</Style>
+<Style x:Key="FlashyAlarmBorderStyle" TargetType="{x:Type Border}">
+    <Setter Property="BorderBrush" Value="{DynamicResource GlyphBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource WindowGradientBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Style.Triggers>
+        <MultiDataTrigger>
+            <MultiDataTrigger.Conditions>
+                <Condition Binding="{Binding GotFault}" Value="True" />
+                <Condition Binding="{Binding FaultNeedsAcknowledgement}" Value="True" />
+            </MultiDataTrigger.Conditions>
+            <Setter Property="Background" Value="Orange"/>
+            <Setter Property="BorderBrush" Value="Orange"/>
+            <MultiDataTrigger.EnterActions>
+                <BeginStoryboard Name="faultBoard">
+                    <Storyboard>
+                        <ColorAnimation AutoReverse="True" 
+                                                RepeatBehavior="Forever" 
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                Duration="00:00:01"                                            
+                                                From="Silver"
+                                                To="Orange"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </MultiDataTrigger.EnterActions>
+            <MultiDataTrigger.ExitActions>
+                <StopStoryboard BeginStoryboardName="faultBoard">
+                </StopStoryboard>
+            </MultiDataTrigger.ExitActions>
+        </MultiDataTrigger>
+        <MultiDataTrigger>
+            <MultiDataTrigger.Conditions>
+                <Condition Binding="{Binding HasGamma}" Value="True" />
+                <Condition Binding="{Binding AlarmNeedsAcknowledgement}" Value="True" />
+            </MultiDataTrigger.Conditions>
+            <Setter Property="Background" Value="Red"/>
+            <Setter Property="BorderBrush" Value="Red"/>
+            <MultiDataTrigger.EnterActions>
+                <BeginStoryboard Name="gammaBoard">
+                    <Storyboard>
+                        <ColorAnimation AutoReverse="True" 
+                                                RepeatBehavior="Forever" 
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                Duration="00:00:01"
+                                                From="Silver"
+                                                To="Red"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </MultiDataTrigger.EnterActions>
+            <MultiDataTrigger.ExitActions>
+                <StopStoryboard BeginStoryboardName="gammaBoard">
+                </StopStoryboard>
+            </MultiDataTrigger.ExitActions>
+        </MultiDataTrigger>
+        <MultiDataTrigger>
+            <MultiDataTrigger.Conditions>
+                <Condition Binding="{Binding HasNeutron}" Value="True" />
+                <Condition Binding="{Binding AlarmNeedsAcknowledgement}" Value="True" />
+            </MultiDataTrigger.Conditions>
+            <Setter Property="Background" Value="Blue"/>
+            <Setter Property="BorderBrush" Value="Blue"/>
+            <MultiDataTrigger.EnterActions>
+                <BeginStoryboard Name="neutronBoard">
+                    <Storyboard>
+                        <ColorAnimation AutoReverse="True" 
+                                                RepeatBehavior="Forever" 
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                Duration="00:00:01"
+                                                From="Silver"
+                                                To="Blue"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </MultiDataTrigger.EnterActions>
+            <MultiDataTrigger.ExitActions>
+                <StopStoryboard BeginStoryboardName="gammaBoard">
+                </StopStoryboard>
+            </MultiDataTrigger.ExitActions>
+        </MultiDataTrigger>
+        <MultiDataTrigger>
+            <MultiDataTrigger.Conditions>
+                <Condition Binding="{Binding HasNeutron}" Value="True" />
+                <Condition Binding="{Binding HasGamma}" Value="True" />
+                <Condition Binding="{Binding AlarmNeedsAcknowledgement}" Value="True" />
+            </MultiDataTrigger.Conditions>
+            <Setter Property="Background" Value="Magenta"/>
+            <Setter Property="BorderBrush" Value="Magenta"/>
+            <MultiDataTrigger.EnterActions>
+                <BeginStoryboard Name="ngBoard">
+                    <Storyboard>
+                        <ColorAnimation AutoReverse="True" 
+                                                RepeatBehavior="Forever" 
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                Duration="00:00:01"
+                                                From="Silver"
+                                                To="Magenta"/>
+
+                    </Storyboard>
+                </BeginStoryboard>
+            </MultiDataTrigger.EnterActions>
+            <MultiDataTrigger.ExitActions>
+                <StopStoryboard BeginStoryboardName="ngBoard">
+                </StopStoryboard>
+            </MultiDataTrigger.ExitActions>
+        </MultiDataTrigger>
+    </Style.Triggers>
+</Style>-->
