@@ -36,7 +36,7 @@ namespace AnimationSample
         }
 
 
-        private string _description = "I am an alarm!";
+        private string _description = "I am a view model description!";
         public string Description
         {
             get { return _description; }

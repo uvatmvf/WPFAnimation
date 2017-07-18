@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AnimationSample"
              mc:Ignorable="d" >
-    <Border Margin="8"
-            Style="{DynamicResource FlashyAlarmBorderStyle}">
-        <StackPanel>
-            <Label HorizontalAlignment="Center" Content="SMALL VIEW" Foreground="White"/>
-            <CheckBox Margin="4" IsChecked="{Binding Alarm}" Content="Turn on the alarm." HorizontalAlignment="Center" Foreground="White" />
-            <CheckBox Margin="4" IsChecked="{Binding Flash}" Content="Turn on the flash!" HorizontalAlignment="Center" Foreground="White" />
-        </StackPanel>
-    </Border>
+        <Border Margin="8"
+                Style="{DynamicResource FlashyAlarmBorderStyle}" VerticalAlignment="Stretch">
+            <StackPanel >
+                <Label HorizontalAlignment="Center" Content="SMALL VIEW" Foreground="White"/>
+                <CheckBox Margin="4" IsChecked="{Binding Alarm}" Content="Turn on the alarm." HorizontalAlignment="Center" Foreground="White" />
+                <CheckBox Margin="4" IsChecked="{Binding Flash}" Content="Turn on the flash!" HorizontalAlignment="Center" Foreground="White" />
+            </StackPanel>
+        </Border>
 </UserControl>

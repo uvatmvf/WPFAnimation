@@ -7,11 +7,16 @@
              mc:Ignorable="d" >
     <Border Margin="8"
             Style="{DynamicResource FlashyAlarmBorderStyle}">
-        <StackPanel>
+        <DockPanel LastChildFill="True">
+            <StackPanel Margin="8">
             <Label HorizontalAlignment="Center" Content="LARGE VIEW" Foreground="White"/>
-            <CheckBox Margin="8" IsChecked="{Binding Alarm}" Content="Turn on the alarm." Foreground="White" />
-            <CheckBox Margin="8"  IsChecked="{Binding Flash}" Content="Turn on the flash!" Foreground="White" />
-            <Label Margin="8" Content="{Binding Description}" Foreground="White"/>
-        </StackPanel>
+            <CheckBox IsChecked="{Binding Alarm}" Content="Turn on the alarm." Foreground="White" />
+            <CheckBox IsChecked="{Binding Flash}" Content="Turn on the flash!" Foreground="White" />
+            <TextBlock>
+                <Run Text="Description: " Foreground="Teal" />
+                <Run Text="{Binding Description}" Foreground="White" />                
+            </TextBlock>             
+            </StackPanel>
+        </DockPanel>
     </Border>
 </UserControl>

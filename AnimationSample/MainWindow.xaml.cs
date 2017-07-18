@@ -10,7 +10,6 @@ namespace AnimationSample
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new SampleViewModel();
         }
     }
 }

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnimationSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Window.Resources>
+        Title="MainWindow" Height="281.789" Width="525">
+    <Window.Resources>        
         <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="smallTemplate">
             <local:SmallUserControl />
         </DataTemplate>
@@ -34,10 +34,21 @@
                 </DataTrigger>                
             </Style.Triggers>
         </Style>
+        <ResourceDictionary x:Key="VmDictionary">
+            <local:SampleViewModel x:Key="localVm"/>
+        </ResourceDictionary>
     </Window.Resources>
-    <StackPanel Margin="8">
-        <Slider x:Name="ZoomSlider" Minimum="1" Maximum="2" IsSnapToTickEnabled="True" />
-        <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}">
-        </ContentControl>
-    </StackPanel>
+    <Window.DataContext>
+        <local:SampleViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Margin="8" Grid.Row="0">
+            <Slider x:Name="ZoomSlider" Minimum="1" Maximum="2" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top" />
+            <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}">
+            </ContentControl>
+        </DockPanel>
+    </Grid>
 </Window>
