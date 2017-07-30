@@ -1,7 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <LinearGradientBrush x:Key="SampleGradientBrush">
+        <GradientStop Color="Green" Offset="0.0"/>
+        <GradientStop Color="Black" Offset="1.0"/>
+        <GradientStop Color="Green" Offset="0.0"/>
+    </LinearGradientBrush>
     <Style x:Key="FlashyAlarmBorderStyle" TargetType="{x:Type Border}">
         <Setter Property="BorderBrush" Value="Silver"/>
+        <!--<Setter Property="Background" Value="{StaticResource SampleGradientBrush}"/>-->
         <Setter Property="Background" Value="Black" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="CornerRadius" Value="8" />
@@ -18,8 +24,8 @@
                                                 RepeatBehavior="Forever" 
                                                 Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
                                                 Duration="00:00:01"                                            
-                                                From="Silver"
-                                                To="Orange"/>
+                                                From="Orange"
+                                                To="Black"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiDataTrigger.EnterActions>
@@ -27,27 +33,7 @@
                     <StopStoryboard BeginStoryboardName="faultBoard">
                     </StopStoryboard>
                 </MultiDataTrigger.ExitActions>
-            </MultiDataTrigger>
-            <!--<DataTrigger Binding="{Binding Alarm}" Value="True" >
-                <Setter Property="Background" Value="Orange"/>
-                <Setter Property="BorderBrush" Value="Orange"/>
-                <DataTrigger.EnterActions>
-                    <BeginStoryboard Name="alarmBoard">
-                        <Storyboard>
-                            <ColorAnimation AutoReverse="True" 
-                                                RepeatBehavior="Forever" 
-                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                                Duration="00:00:01"                                            
-                                                From="Silver"
-                                                To="Orange"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </DataTrigger.EnterActions>
-                <DataTrigger.ExitActions>
-                    <StopStoryboard BeginStoryboardName="alarmBoard">
-                    </StopStoryboard>
-                </DataTrigger.ExitActions>
-            </DataTrigger>-->          
+            </MultiDataTrigger>          
         </Style.Triggers>
     </Style>
 </ResourceDictionary>
