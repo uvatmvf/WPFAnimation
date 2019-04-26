@@ -12,6 +12,9 @@
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="CornerRadius" Value="8" />
         <Style.Triggers>
+            <DataTrigger Binding="{Binding Alarm}" Value="True">
+                <Setter Property="Background" Value="Red" />
+            </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Alarm}" Value="True" />
