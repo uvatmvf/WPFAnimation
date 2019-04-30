@@ -1,12 +1,33 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace AnimationSample
 {
     public class SampleViewModel : NotifyPropertyChangedBase<SampleViewModel>
-    {
+    { 
+        public SampleViewModel()
+        {
+            ChangeImagePathCommand = new ActionCommand()
+            {
+                CanExecuteAction = e => true,
+                ExecuteAction = e => {
+                    Task.Run(() =>
+                    {
+                        int eI = int.Parse(e.ToString());
+                        ImagePath = Path.GetFullPath($"Resources/image{eI}.png");
+                        Alarm = eI < 3;
+                        OnPropertyChanged(x => x.ImagePath);
+                    });
+                }
+            };
+        }
+
         private bool _alarm;
         public bool Alarm
         {
@@ -48,6 +69,23 @@ namespace AnimationSample
                     OnPropertyChanged("Description");
                 }
             }
+        }
+
+        public string ImagePath { get; set; } = Path.GetFullPath($"Resources/image1.png");
+        public ICommand ChangeImagePathCommand { get; private set; }
+    }
+
+    public class ActionCommand : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public Func<object, bool> CanExecuteAction { get; set; }
+        public bool CanExecute(object parameter) => CanExecuteAction != null ? CanExecuteAction.Invoke(parameter) : true;
+
+        public Action<object> ExecuteAction { get; set; }
+        public void Execute(object parameter)
+        {
+            ExecuteAction?.Invoke(parameter);
         }
     }
 

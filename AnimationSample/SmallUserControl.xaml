@@ -11,6 +11,7 @@
                 <Label HorizontalAlignment="Center" Content="SMALL VIEW" Foreground="White"/>
                 <CheckBox Margin="4" IsChecked="{Binding Alarm}" Content="Turn on the alarm." HorizontalAlignment="Center" Foreground="White" />
                 <CheckBox Margin="4" IsChecked="{Binding Flash}" Content="Turn on the flash!" HorizontalAlignment="Center" Foreground="White" />
-            </StackPanel>
+            <Image Source="{Binding ImagePath}" />
+        </StackPanel>
         </Border>
 </UserControl>
