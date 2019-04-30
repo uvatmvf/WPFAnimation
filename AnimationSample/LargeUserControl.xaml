@@ -16,7 +16,8 @@
             <TextBlock>
                 <Run Text="Description: " Foreground="Teal" />
                 <Run Text="{Binding Description}" Foreground="White" />                
-            </TextBlock>             
+            </TextBlock>
+                <Image Source="{Binding ImagePath}" />
             </StackPanel>
         </DockPanel>
     </Border>

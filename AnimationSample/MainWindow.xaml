@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnimationSample"
         mc:Ignorable="d"
@@ -46,7 +47,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel Margin="8" Grid.Row="0">
-            <Slider x:Name="ZoomSlider" Minimum="1" Maximum="2" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top" />
+            <ListBox x:Name="VersionSelectListBox">
+                <ListBox.Items>
+                    <ListBoxItem>1</ListBoxItem>
+                    <ListBoxItem>2</ListBoxItem>
+                    <ListBoxItem>3</ListBoxItem>
+                </ListBox.Items>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding SelectedItem.Content, ElementName=VersionSelectListBox}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
+            <Slider x:Name="ZoomSlider" Visibility="Collapsed" Background="DarkGray"                     
+                    Minimum="1" Maximum="3" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding Value, ElementName=ZoomSlider}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Slider>
             <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}">
             </ContentControl>
         </DockPanel>
