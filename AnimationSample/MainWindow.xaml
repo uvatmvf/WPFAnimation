@@ -35,10 +35,7 @@
                     <Setter Property="ContentTemplate" Value="{StaticResource largeTemplate}"/>
                 </DataTrigger>                
             </Style.Triggers>
-        </Style>
-        <ResourceDictionary x:Key="VmDictionary">
-            <local:SampleViewModel x:Key="localVm"/>
-        </ResourceDictionary>
+        </Style>        
     </Window.Resources>
     <Window.DataContext>
         <local:SampleViewModel/>
@@ -50,8 +47,8 @@
         <DockPanel Margin="8" Grid.Row="0">
             <DockPanel DockPanel.Dock="Left">
                 <Button DockPanel.Dock="Top" Content="+" Margin="0,4,0,4" Command="{Binding PostImage}" />
-            <ListBox x:Name="VersionSelectListBox"
-                     
+                <Label Content="Version" DockPanel.Dock="top"/>
+                <ListBox x:Name="VersionSelectListBox"
                      ItemsSource="{Binding NoteVersions}">
                 <!--<ListBox.Items>
                     <ListBoxItem>1</ListBoxItem>
@@ -75,7 +72,6 @@
                 </i:Interaction.Triggers>
             </Slider>
             <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}" />
-            
         </DockPanel>
     </Grid>
 </Window>
