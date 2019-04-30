@@ -6,7 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnimationSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="281.789" Width="525">
+        FontSize="24"
+        Title="MainWindow" Height="600" Width="800">
     <Window.Resources>        
         <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="smallTemplate">
             <local:SmallUserControl />
@@ -47,28 +48,34 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel Margin="8" Grid.Row="0">
-            <ListBox x:Name="VersionSelectListBox">
-                <ListBox.Items>
+            <DockPanel DockPanel.Dock="Left">
+                <Button DockPanel.Dock="Top" Content="+" Margin="0,4,0,4" Command="{Binding PostImage}" />
+            <ListBox x:Name="VersionSelectListBox"
+                     
+                     ItemsSource="{Binding NoteVersions}">
+                <!--<ListBox.Items>
                     <ListBoxItem>1</ListBoxItem>
                     <ListBoxItem>2</ListBoxItem>
                     <ListBoxItem>3</ListBoxItem>
-                </ListBox.Items>
+                </ListBox.Items>-->
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding SelectedItem.Content, ElementName=VersionSelectListBox}" />
+                        <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding SelectedValue, ElementName=VersionSelectListBox}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>
+                
+            </DockPanel>
             <Slider x:Name="ZoomSlider" Visibility="Collapsed" Background="DarkGray"                     
-                    Minimum="1" Maximum="3" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top">
+                    Minimum="1" Maximum="{Binding NoteList.Length}" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
                         <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding Value, ElementName=ZoomSlider}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Slider>
-            <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}">
-            </ContentControl>
+            <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}" />
+            
         </DockPanel>
     </Grid>
 </Window>

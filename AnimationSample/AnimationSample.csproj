@@ -55,13 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\ActionCommand.cs" />
+    <Compile Include="Commands\AttachFileCommand.cs" />
     <Compile Include="LargeUserControl.xaml.cs">
       <DependentUpon>LargeUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SampleViewModel.cs" />
+    <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="SmallUserControl.xaml.cs">
       <DependentUpon>SmallUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
