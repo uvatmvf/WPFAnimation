@@ -57,6 +57,7 @@
             </ListBox>
                 
             </DockPanel>
+            <!--DEMO NOTE: Leave this slider maximum intentionally wonky in effect to demo changing datatemplate view.-->
             <Slider x:Name="ZoomSlider"  Background="DarkGray"                     
                     Minimum="1" Maximum="{Binding NoteList.Length}" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top">
                 <i:Interaction.Triggers>
