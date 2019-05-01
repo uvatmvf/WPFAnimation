@@ -3,3 +3,9 @@
 ################################################################################
 
 /AnimationSample/obj/Debug
+/AnimationSample/bin/Debug
+.vs
+AnimationSample/.vs
+packages
+AnimationSample/obj
+AnimationSample/bin
