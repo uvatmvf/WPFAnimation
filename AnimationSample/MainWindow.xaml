@@ -34,39 +34,40 @@
     <Window.DataContext>
         <local:SampleViewModel/>
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <DockPanel Margin="8" Grid.Row="0">
+    <Grid>        
+        <DockPanel Margin="8">
             <DockPanel DockPanel.Dock="Left">
                 <Button DockPanel.Dock="Top" Content="+" Margin="0,4,0,4" Command="{Binding PostImage}" />
                 <Label Content="Version" DockPanel.Dock="top"/>
                 <ListBox x:Name="VersionSelectListBox"
-                     ItemsSource="{Binding NoteVersions}">
-                <!--<ListBox.Items>
-                    <ListBoxItem>1</ListBoxItem>
-                    <ListBoxItem>2</ListBoxItem>
-                    <ListBoxItem>3</ListBoxItem>
-                </ListBox.Items>-->
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding SelectedValue, ElementName=VersionSelectListBox}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ListBox>
-                
+                     ItemsSource="{Binding NoteVersions}">                
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding SelectedValue, ElementName=VersionSelectListBox}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBox>                
             </DockPanel>
             <!--DEMO NOTE: Leave this slider maximum intentionally wonky in effect to demo changing datatemplate view.-->
-            <Slider x:Name="ZoomSlider"  Background="DarkGray"                     
-                    Minimum="1" Maximum="{Binding NoteList.Length}" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top">
+            <Slider x:Name="ZoomSlider"  Background="DarkGray"                  
+                    Minimum="1" Maximum="{Binding NoteVersions.Count}" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
                         <i:InvokeCommandAction Command="{Binding ChangeImagePathCommand}" CommandParameter="{Binding Value, ElementName=ZoomSlider}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Slider>
-            <ContentControl Content="{Binding}" Style="{StaticResource DisplayStyle}" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+            <ContentControl Content="{Binding}" Grid.Row="0" Style="{StaticResource DisplayStyle}" DockPanel.Dock="Top" />
+                <GridSplitter Height="8" HorizontalAlignment="Stretch" Grid.Row="1" ResizeDirection="Rows"></GridSplitter>
+            <local:MultiSampleViewer 
+                 ViewIndex="{Binding Value, ElementName=ZoomSlider}" Grid.Row="2" DockPanel.Dock="Top" />
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>
