@@ -8,13 +8,7 @@
         mc:Ignorable="d"
         FontSize="24"
         Title="MainWindow" Height="600" Width="800">
-    <Window.Resources>        
-        <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="smallTemplate">
-            <local:SmallUserControl />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="largeTemplate">
-            <local:LargeUserControl />
-        </DataTemplate>        
+    <Window.Resources>     
         <DataTemplate DataType="{x:Type local:SampleViewModel}" x:Key="mainTemplate">
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding ElementName=ZoomSlider, Path=Value}" Value="1">                 
@@ -63,7 +57,7 @@
             </ListBox>
                 
             </DockPanel>
-            <Slider x:Name="ZoomSlider" Visibility="Collapsed" Background="DarkGray"                     
+            <Slider x:Name="ZoomSlider"  Background="DarkGray"                     
                     Minimum="1" Maximum="{Binding NoteList.Length}" IsSnapToTickEnabled="True" Orientation="Horizontal" DockPanel.Dock="Top">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
