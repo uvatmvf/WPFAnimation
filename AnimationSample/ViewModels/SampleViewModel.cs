@@ -30,6 +30,7 @@ namespace AnimationSample
                         ImagePath = filePath;
                         Alarm = eI < NoteVersions.Count - 1;
                         OnPropertyChanged(x => x.ImagePath);
+                        
                     });
                 }
             };
