@@ -66,7 +66,7 @@ namespace AnimationSample
                 if (!_alarm.Equals(value))
                 {
                     _alarm = value;
-                    OnPropertyChanged("Alarm");                    
+                    OnPropertyChanged(nameof(Alarm));                    
                 }
             }
         }
